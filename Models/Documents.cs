@@ -41,7 +41,5 @@ namespace CbcSelfServicePortal.Models
         public string Type { get; set; }
         public int Size { get; set; }
         public byte[] File { get; set; }
-
-
     }
 }

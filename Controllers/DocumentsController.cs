@@ -69,11 +69,11 @@ namespace CbcSelfServicePortal.Controllers
         }
 
         #region ADO.NET
-               private void SaveFilePathSQLServerADO(
-                    string localFile, string filePath)
-                {
-                    // 1) Move file to folder
-                    File.Move(localFile, filePath);
+        private void SaveFilePathSQLServerADO(
+             string localFile, string filePath)
+        {
+            // 1) Move file to folder
+            File.Move(localFile, filePath);
 
             // 2) connection string
             var connStr =
@@ -83,23 +83,23 @@ namespace CbcSelfServicePortal.Controllers
 
             // 3) Insert in DB
             var query =
-                "Insert into Documents(Type, File) " +
-                "values (@Type, @File);";
+                "Insert into Documents(Type, Size ,File) " +
+                "values (@Type, @Size, @File);";
 
             using (var conn = new SqlConnection(connStr))
-                    using (var cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.Add(
-                            "@FilePath",
-                            SqlDbType.VarChar,
-                            200)
-                            .Value = filePath;
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.Add(
+                    "@FilePath",
+                    SqlDbType.VarChar,
+                    200)
+                    .Value = filePath;
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                    }
-                }
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
         private void SaveFileBinarySQLServerADO(
             string localFile, string fileName)
         {
@@ -121,8 +121,8 @@ namespace CbcSelfServicePortal.Controllers
 
             // 3) Insert in DB
             var query =
-                "Insert into Documents(Type, File) " +
-                "values (@Type, @File);";
+                "Insert into Documents(Type, Size ,File) " +
+                "values (@Type, @Size, @File);";
 
             using (var conn = new SqlConnection(connStr))
             using (var cmd = new SqlCommand(query, conn))
@@ -134,14 +134,14 @@ namespace CbcSelfServicePortal.Controllers
                   .Value = fileName;
 
                 cmd.Parameters.Add(
-                    "@File",
-                    SqlDbType.VarBinary)
-                    .Value = fileBytes;
-
-                cmd.Parameters.Add(
                     "@Size",
                     SqlDbType.Int)
                     .Value = fileBytes.Length;
+
+                cmd.Parameters.Add(
+                    "@File",
+                    SqlDbType.VarBinary)
+                    .Value = fileBytes;
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -160,12 +160,12 @@ namespace CbcSelfServicePortal.Controllers
             // 2) Create a File Location object
             var fl = new Documents()
             {
-               // FilePath = filePath
+                // FilePath = filePath
             };
 
             // 3) Add and save it in database
             using (var ctx = new ApplicationDbContext())
-            {   
+            {
                 ctx.Documents.Add(fl);
 
                 ctx.SaveChanges();

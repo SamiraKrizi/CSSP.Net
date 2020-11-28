@@ -15,6 +15,8 @@ namespace CbcSelfServicePortal.Models
         public ICollection<csspClaims> CsspClaims { get; set; }
         public string VehicleRegistration { get; set; }
         public string RegistrationCountry { get; set; }
+        public string Name { get; set; }
+
         public DateTime ClaimDate { get; set; } = DateTime.Now;
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

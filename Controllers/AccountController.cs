@@ -22,6 +22,8 @@ namespace CbcSelfServicePortal.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
+
+
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
@@ -50,6 +52,9 @@ namespace CbcSelfServicePortal.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
+
+
+
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
@@ -64,6 +69,9 @@ namespace CbcSelfServicePortal.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }
+
+
+
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -312,6 +320,8 @@ namespace CbcSelfServicePortal.Controllers
                     State = state
                 };
                 logins.Add(login);
+
+
             }
 
             return logins;
@@ -326,9 +336,10 @@ namespace CbcSelfServicePortal.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+              //model.Role = "Insured";
             var user = new ApplicationUser() {
                 UserName = model.Email, 
+                Name = model.Name,
                 Email = model.Email, 
                 VehicleRegistration = model.VehicleRegistration, 
                 RegistrationCountry=model.RegistrationCountry, 
@@ -337,29 +348,13 @@ namespace CbcSelfServicePortal.Controllers
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
-         /*   if (!result.Succeeded)
+            if (!result.Succeeded)
             {
-                 var token = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-                  var confirmationLink = Url.Action("ConfirmEmail", "Account",
-                    new { userId = user.Id, token = token }, Request.Scheme);
                 return GetErrorResult(result);
             }
-        */
+
             return Ok();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         // POST api/Account/RegisterExternal
@@ -405,9 +400,6 @@ namespace CbcSelfServicePortal.Controllers
 
             base.Dispose(disposing);
         }
-
-    
-
 
         #region Helpers
 

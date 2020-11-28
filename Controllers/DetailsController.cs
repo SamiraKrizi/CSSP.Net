@@ -80,6 +80,7 @@ namespace CbcSelfServicePortal.Controllers
             }
 
             db.Details.Add(details);
+           
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = details.ID }, details);

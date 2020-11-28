@@ -16,7 +16,7 @@ namespace CbcSelfServicePortal.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/csspClaims 
+        // GET: api/csspClaims
         public IQueryable<csspClaims> GetCsspClaims()
         {
             return db.CsspClaims;
