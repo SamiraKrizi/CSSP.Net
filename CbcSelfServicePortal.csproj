@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -48,10 +47,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -62,8 +61,14 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cors, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cors.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
@@ -78,6 +83,21 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
@@ -124,8 +144,16 @@
     <Reference Include="System.Collections.Immutable, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.5.0.0-rc.1.20451.14\lib\net461\System.Collections.Immutable.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -258,76 +286,136 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminRepliesController.cs" />
     <Compile Include="Controllers\csspClaimsController.cs" />
-    <Compile Include="Controllers\DetailsController.cs" />
-    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OtherPartiesController.cs" />
+    <Compile Include="Controllers\InsuranceCompaniesController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserEdit.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007231005358_init.cs" />
-    <Compile Include="Migrations\202007231005358_init.Designer.cs">
-      <DependentUpon>202007231005358_init.cs</DependentUpon>
+    <Compile Include="Migrations\202103070109015_kf.cs" />
+    <Compile Include="Migrations\202103070109015_kf.Designer.cs">
+      <DependentUpon>202103070109015_kf.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007231037359_initl.cs" />
-    <Compile Include="Migrations\202007231037359_initl.Designer.cs">
-      <DependentUpon>202007231037359_initl.cs</DependentUpon>
+    <Compile Include="Migrations\202103102205222_ff.cs" />
+    <Compile Include="Migrations\202103102205222_ff.Designer.cs">
+      <DependentUpon>202103102205222_ff.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009072111050_date.cs" />
-    <Compile Include="Migrations\202009072111050_date.Designer.cs">
-      <DependentUpon>202009072111050_date.cs</DependentUpon>
+    <Compile Include="Migrations\202103111948092_fff.cs" />
+    <Compile Include="Migrations\202103111948092_fff.Designer.cs">
+      <DependentUpon>202103111948092_fff.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009090309050_userId.cs" />
-    <Compile Include="Migrations\202009090309050_userId.Designer.cs">
-      <DependentUpon>202009090309050_userId.cs</DependentUpon>
+    <Compile Include="Migrations\202103112004033_fffd.cs" />
+    <Compile Include="Migrations\202103112004033_fffd.Designer.cs">
+      <DependentUpon>202103112004033_fffd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009090312470_user.cs" />
-    <Compile Include="Migrations\202009090312470_user.Designer.cs">
-      <DependentUpon>202009090312470_user.cs</DependentUpon>
+    <Compile Include="Migrations\202103112017361_fffdv.cs" />
+    <Compile Include="Migrations\202103112017361_fffdv.Designer.cs">
+      <DependentUpon>202103112017361_fffdv.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010231411509_ml.cs" />
-    <Compile Include="Migrations\202010231411509_ml.designer.cs">
-      <DependentUpon>202010231411509_ml.cs</DependentUpon>
+    <Compile Include="Migrations\202103122227397_vv.cs" />
+    <Compile Include="Migrations\202103122227397_vv.Designer.cs">
+      <DependentUpon>202103122227397_vv.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010231429405_mm.cs" />
-    <Compile Include="Migrations\202010231429405_mm.designer.cs">
-      <DependentUpon>202010231429405_mm.cs</DependentUpon>
+    <Compile Include="Migrations\202103122321003_vvd.cs" />
+    <Compile Include="Migrations\202103122321003_vvd.Designer.cs">
+      <DependentUpon>202103122321003_vvd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011031918589_ml1.cs" />
-    <Compile Include="Migrations\202011031918589_ml1.designer.cs">
-      <DependentUpon>202011031918589_ml1.cs</DependentUpon>
+    <Compile Include="Migrations\202103141132199_kk.cs" />
+    <Compile Include="Migrations\202103141132199_kk.Designer.cs">
+      <DependentUpon>202103141132199_kk.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011031922027_mm1.cs" />
-    <Compile Include="Migrations\202011031922027_mm1.designer.cs">
-      <DependentUpon>202011031922027_mm1.cs</DependentUpon>
+    <Compile Include="Migrations\202103141134430_kx.cs" />
+    <Compile Include="Migrations\202103141134430_kx.Designer.cs">
+      <DependentUpon>202103141134430_kx.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011042034557_mc.cs" />
-    <Compile Include="Migrations\202011042034557_mc.designer.cs">
-      <DependentUpon>202011042034557_mc.cs</DependentUpon>
+    <Compile Include="Migrations\202103152127181_ke.cs" />
+    <Compile Include="Migrations\202103152127181_ke.Designer.cs">
+      <DependentUpon>202103152127181_ke.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011050948363_mcd.cs" />
-    <Compile Include="Migrations\202011050948363_mcd.designer.cs">
-      <DependentUpon>202011050948363_mcd.cs</DependentUpon>
+    <Compile Include="Migrations\202103152219182_kev.cs" />
+    <Compile Include="Migrations\202103152219182_kev.Designer.cs">
+      <DependentUpon>202103152219182_kev.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011151028041_upm.cs" />
-    <Compile Include="Migrations\202011151028041_upm.designer.cs">
-      <DependentUpon>202011151028041_upm.cs</DependentUpon>
+    <Compile Include="Migrations\202103191738378_ken.cs" />
+    <Compile Include="Migrations\202103191738378_ken.Designer.cs">
+      <DependentUpon>202103191738378_ken.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011151032406_upl.cs" />
-    <Compile Include="Migrations\202011151032406_upl.designer.cs">
-      <DependentUpon>202011151032406_upl.cs</DependentUpon>
+    <Compile Include="Migrations\202103191744289_kend.cs" />
+    <Compile Include="Migrations\202103191744289_kend.Designer.cs">
+      <DependentUpon>202103191744289_kend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103222310160_kedd.cs" />
+    <Compile Include="Migrations\202103222310160_kedd.Designer.cs">
+      <DependentUpon>202103222310160_kedd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103222329414_kedx.cs" />
+    <Compile Include="Migrations\202103222329414_kedx.Designer.cs">
+      <DependentUpon>202103222329414_kedx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103230004506_kc.cs" />
+    <Compile Include="Migrations\202103230004506_kc.Designer.cs">
+      <DependentUpon>202103230004506_kc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103230018569_k.cs" />
+    <Compile Include="Migrations\202103230018569_k.Designer.cs">
+      <DependentUpon>202103230018569_k.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103242255275_dd.cs" />
+    <Compile Include="Migrations\202103242255275_dd.Designer.cs">
+      <DependentUpon>202103242255275_dd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104020034549_mm.cs" />
+    <Compile Include="Migrations\202104020034549_mm.Designer.cs">
+      <DependentUpon>202104020034549_mm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104041352409_mmc.cs" />
+    <Compile Include="Migrations\202104041352409_mmc.Designer.cs">
+      <DependentUpon>202104041352409_mmc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104051557182_mc.cs" />
+    <Compile Include="Migrations\202104051557182_mc.Designer.cs">
+      <DependentUpon>202104051557182_mc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104051618513_mx.cs" />
+    <Compile Include="Migrations\202104051618513_mx.Designer.cs">
+      <DependentUpon>202104051618513_mx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105010428439_gg.cs" />
+    <Compile Include="Migrations\202105010428439_gg.Designer.cs">
+      <DependentUpon>202105010428439_gg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105010447126_ggs.cs" />
+    <Compile Include="Migrations\202105010447126_ggs.Designer.cs">
+      <DependentUpon>202105010447126_ggs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105211924567_fg.cs" />
+    <Compile Include="Migrations\202105211924567_fg.Designer.cs">
+      <DependentUpon>202105211924567_fg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105211935228_fgd.cs" />
+    <Compile Include="Migrations\202105211935228_fgd.Designer.cs">
+      <DependentUpon>202105211935228_fgd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105212237527_fgdx.cs" />
+    <Compile Include="Migrations\202105212237527_fgdx.Designer.cs">
+      <DependentUpon>202105212237527_fgdx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105262045136_fx.cs" />
+    <Compile Include="Migrations\202105262045136_fx.Designer.cs">
+      <DependentUpon>202105262045136_fx.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AdminReply.cs" />
     <Compile Include="Models\csspClaims.cs" />
-    <Compile Include="Models\Details.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Documents.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InsuranceCompany.cs" />
     <Compile Include="Models\Rating.cs" />
-    <Compile Include="Models\OtherParty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -514,48 +602,93 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202007231005358_init.resx">
-      <DependentUpon>202007231005358_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007231037359_initl.resx">
-      <DependentUpon>202007231037359_initl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009072111050_date.resx">
-      <DependentUpon>202009072111050_date.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009090309050_userId.resx">
-      <DependentUpon>202009090309050_userId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009090312470_user.resx">
-      <DependentUpon>202009090312470_user.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010231411509_ml.resx">
-      <DependentUpon>202010231411509_ml.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010231429405_mm.resx">
-      <DependentUpon>202010231429405_mm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011031918589_ml1.resx">
-      <DependentUpon>202011031918589_ml1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011031922027_mm1.resx">
-      <DependentUpon>202011031922027_mm1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011042034557_mc.resx">
-      <DependentUpon>202011042034557_mc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011050948363_mcd.resx">
-      <DependentUpon>202011050948363_mcd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011151028041_upm.resx">
-      <DependentUpon>202011151028041_upm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011151032406_upl.resx">
-      <DependentUpon>202011151032406_upl.cs</DependentUpon>
-    </EmbeddedResource>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <EmbeddedResource Include="Migrations\202103070109015_kf.resx">
+      <DependentUpon>202103070109015_kf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103102205222_ff.resx">
+      <DependentUpon>202103102205222_ff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103111948092_fff.resx">
+      <DependentUpon>202103111948092_fff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103112004033_fffd.resx">
+      <DependentUpon>202103112004033_fffd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103112017361_fffdv.resx">
+      <DependentUpon>202103112017361_fffdv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103122227397_vv.resx">
+      <DependentUpon>202103122227397_vv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103122321003_vvd.resx">
+      <DependentUpon>202103122321003_vvd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103141132199_kk.resx">
+      <DependentUpon>202103141132199_kk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103141134430_kx.resx">
+      <DependentUpon>202103141134430_kx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103152127181_ke.resx">
+      <DependentUpon>202103152127181_ke.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103152219182_kev.resx">
+      <DependentUpon>202103152219182_kev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103191738378_ken.resx">
+      <DependentUpon>202103191738378_ken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103191744289_kend.resx">
+      <DependentUpon>202103191744289_kend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103222310160_kedd.resx">
+      <DependentUpon>202103222310160_kedd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103222329414_kedx.resx">
+      <DependentUpon>202103222329414_kedx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103230004506_kc.resx">
+      <DependentUpon>202103230004506_kc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103230018569_k.resx">
+      <DependentUpon>202103230018569_k.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103242255275_dd.resx">
+      <DependentUpon>202103242255275_dd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104020034549_mm.resx">
+      <DependentUpon>202104020034549_mm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104041352409_mmc.resx">
+      <DependentUpon>202104041352409_mmc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104051557182_mc.resx">
+      <DependentUpon>202104051557182_mc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104051618513_mx.resx">
+      <DependentUpon>202104051618513_mx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105010428439_gg.resx">
+      <DependentUpon>202105010428439_gg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105010447126_ggs.resx">
+      <DependentUpon>202105010447126_ggs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105211924567_fg.resx">
+      <DependentUpon>202105211924567_fg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105211935228_fgd.resx">
+      <DependentUpon>202105211935228_fgd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105212237527_fgdx.resx">
+      <DependentUpon>202105212237527_fgdx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105262045136_fx.resx">
+      <DependentUpon>202105262045136_fx.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -590,11 +723,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -49,13 +49,11 @@ namespace CbcSelfServicePortal.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
         public string Name { get; set; }
-
         public string VehicleRegistration { get; set; }
         public string RegistrationCountry { get; set; }
         public String PhoneNumber { get; set; }
         public DateTime ClaimDate { get; set; } = DateTime.Now;
-        //public string Role { get; set; }
-
+        public string[] Roles { get; set; }
     }
 
     public class RegisterExternalBindingModel

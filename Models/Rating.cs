@@ -11,8 +11,9 @@ namespace CbcSelfServicePortal.Models
             [Key]
             public int ID { get; set; }
             public int UserID { get; set; }
+            public int CompanyID { get; set; }
             public int Stars { get; set; }
-            public String Reviews { get; set; }
-            public DateTime Date { get; set; }
+            public string Reviews { get; set; }
+            public DateTime DatePost { get; set; }
         }
     }

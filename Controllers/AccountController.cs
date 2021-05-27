@@ -15,28 +15,44 @@ using Microsoft.Owin.Security.OAuth;
 using CbcSelfServicePortal.Models;
 using CbcSelfServicePortal.Providers;
 using CbcSelfServicePortal.Results;
+using System.Web.Http.Description;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Net;
+using System.Linq;
+using static CbcSelfServicePortal.ApplicationUserManager;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace CbcSelfServicePortal.Controllers
 {
-    [Authorize]
+    
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
+        public ApplicationRoleManager _roleManager;
+        public ApplicationDbContext db = new ApplicationDbContext();
+
+        public const string LocalLoginProvider = "Local";
+        public ApplicationUserManager _userManager;
 
 
-        private const string LocalLoginProvider = "Local";
-        private ApplicationUserManager _userManager;
-
-        public AccountController()
+        public ApplicationRoleManager RoleManager
         {
+
+            get
+            {
+                return _roleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
         }
 
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
-        }
 
         public ApplicationUserManager UserManager
         {
@@ -53,8 +69,86 @@ namespace CbcSelfServicePortal.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
 
+        [AllowAnonymous]
+        [Route("roles/{id:guid}")]
+        [HttpPut]
+        public async Task<IHttpActionResult> AssignRolesToUser(string id, string[] rolesToAssign)
+        {
+            if (rolesToAssign == null)
+            {
+                return this.BadRequest("No roles specified");
+            }
+
+            ///find the user we want to assign roles to
+            var appUser = await this.UserManager.FindByIdAsync(id);
+
+            if (appUser == null || appUser.IsDeleted)
+            {
+                return NotFound();
+            }
+
+            ///check if the user currently has any roles
+            var currentRoles = await this.UserManager.GetRolesAsync(appUser.Id);
 
 
+            var rolesNotExist = rolesToAssign.Except(this.RoleManager.Roles.Select(x => x.Name)).ToArray();
+
+            if (rolesNotExist.Count() > 0)
+            {
+                ModelState.AddModelError("", string.Format("Roles '{0}' does not exist in the system", string.Join(",", rolesNotExist)));
+                return this.BadRequest(ModelState);
+            }
+
+            ///remove user from current roles, if any
+            IdentityResult removeResult = await this.UserManager.RemoveFromRolesAsync(appUser.Id, currentRoles.ToArray());
+
+
+            if (!removeResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Failed to remove user roles");
+                return BadRequest(ModelState);
+            }
+
+            ///assign user to the new roles
+            IdentityResult addResult = await this.UserManager.AddToRolesAsync(appUser.Id, rolesToAssign);
+
+            if (!addResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Failed to add user roles");
+                return BadRequest(ModelState);
+            }
+
+            return Ok(new { userId = id, rolesAssigned = rolesToAssign });
+        }
+
+        // GET api/Account/GetList
+        [HttpGet]
+        [Route("GetList")]
+        public async Task<List<ApplicationUser>> ListUsers()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var users = UserManager.Users;
+
+                return await context.Users.ToListAsync();
+            }
+        }
+
+        [HttpGet]
+        [Route("{id:guid}")]
+        [ResponseType(typeof(ApplicationUser))]
+        public IHttpActionResult GetInsuranceCompany(int id)
+        {
+            ApplicationUser user = db.Users.Find(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+/*
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
@@ -70,6 +164,7 @@ namespace CbcSelfServicePortal.Controllers
             };
         }
 
+*/
 
 
 
@@ -117,9 +212,11 @@ namespace CbcSelfServicePortal.Controllers
                 LocalLoginProvider = LocalLoginProvider,
                 Email = user.UserName,
                 Logins = logins,
-                ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
+
+            ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
             };
         }
+
 
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
@@ -284,6 +381,41 @@ namespace CbcSelfServicePortal.Controllers
             return Ok();
         }
 
+        [EnableCors("AllowOrigin")]
+        [AllowAnonymous]
+        [HttpDelete]
+        [Route("user/{id:guid}")]
+        public IHttpActionResult DeleteUser(string id)
+        {
+            //check if such a user exists in the database
+            var userToDelete = this.UserManager.FindById(id);
+            if (userToDelete == null)
+            {
+                return this.NotFound();
+            }
+            else if (userToDelete.IsDeleted)
+            {
+                return this.BadRequest("User already deleted");
+            }
+            else
+            {
+                var con = ConfigurationManager.ConnectionStrings["CedInternship"].ConnectionString;
+                using (SqlConnection connection = new SqlConnection(con))
+                {
+                    using (SqlCommand command = new SqlCommand("dbo.DeleteUser", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@UserId", SqlDbType.NVarChar).Value = id;
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+            return this.Ok();
+        }
+
+
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
         [Route("ExternalLogins")]
@@ -321,7 +453,6 @@ namespace CbcSelfServicePortal.Controllers
                 };
                 logins.Add(login);
 
-
             }
 
             return logins;
@@ -329,33 +460,44 @@ namespace CbcSelfServicePortal.Controllers
 
         // POST api/Account/Register
         [AllowAnonymous]
+        
+        //[Authorize(Roles = "Insured")]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public IdentityResult  Register(RegisterBindingModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-              //model.Role = "Insured";
+           
+             //model.Role = "Insured";
+
+            var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var manager = new UserManager<ApplicationUser>(userStore);
             var user = new ApplicationUser() {
+                //Role = model.Role,
                 UserName = model.Email, 
                 Name = model.Name,
                 Email = model.Email, 
                 VehicleRegistration = model.VehicleRegistration, 
                 RegistrationCountry=model.RegistrationCountry, 
                 ClaimDate = model.ClaimDate, 
-                PhoneNumber = model.PhoneNumber};
+                PhoneNumber = model.PhoneNumber
+            };
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult result = manager.Create(user, model.Password);
+            manager.AddToRoles(user.Id, model.Roles);
+            return result;
 
-            if (!result.Succeeded)
+          
+
+           /* if (!result.Succeeded)
             {
+                await UserManager.AddToRoleAsync(user.Id, "Insured");
+
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok();*/
         }
 
+       
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
@@ -389,6 +531,82 @@ namespace CbcSelfServicePortal.Controllers
             }
             return Ok();
         }
+
+
+        [HttpPut]
+        [Route("EditUser")]
+        public async Task<IHttpActionResult> EditUser(UserEdit model)
+        {
+
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var manager = new UserManager<ApplicationUser>(store);
+            var currentUser = manager.FindByEmail(model.Email);
+            currentUser.UserName = model.UserName;
+            currentUser.Name = model.Name;
+            currentUser.Email = model.Email;
+            currentUser.VehicleRegistration = model.VehicleRegistration;
+            currentUser.RegistrationCountry = model.RegistrationCountry;
+            currentUser.PhoneNumber = model.PhoneNumber;
+           // currentUser.Role = model.Role;
+
+            await manager.UpdateAsync(currentUser);
+
+            return Ok();
+        }
+
+
+         [HttpGet]
+        [Route("api/GetUserClaims")]
+        public ApplicationUser GetUserClaims()
+        {
+            var identityClaims = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identityClaims.Claims;
+            ApplicationUser model = new ApplicationUser()
+            {
+                UserName = identityClaims.FindFirst("Username").Value,
+                Name = identityClaims.FindFirst("Name").Value,
+                Email = identityClaims.FindFirst("Email").Value,
+                VehicleRegistration = identityClaims.FindFirst("VehicleRegistration").Value,
+                RegistrationCountry = identityClaims.FindFirst("RegistrationCountry").Value,
+                PhoneNumber = identityClaims.FindFirst("PhoneNumber").Value,
+            };
+            return model;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("api/ForAdminRole")]
+        public string ForAdminRole()
+        {
+            return "for admin role";
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Author")]
+        [Route("api/ForAuthorRole")]
+        public string ForAuthorRole()
+        {
+            return "For author role";
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Author,Reader")]
+        [Route("api/ForAuthorOrReader")]
+        public string ForAuthorOrReader()
+        {
+            return "For author/reader role";
+        }
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

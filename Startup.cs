@@ -14,6 +14,13 @@ namespace CbcSelfServicePortal
         {
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureAuth(app);
+
+
+
         }
+
+
+
+
     }
 }

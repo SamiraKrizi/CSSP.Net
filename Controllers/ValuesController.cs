@@ -8,14 +8,14 @@ using System.Web.Http;
 
 namespace CbcSelfServicePortal.Controllers
 {
-    [Authorize]
+   
     public class ValuesController : ApiController
     {
         // GET api/values
         public IEnumerable<string> Get()
         {
             string userId = RequestContext.Principal.Identity.GetUserId();
-            return new string[] { "value1", "value2", userId };
+            return new string[] { userId };
         }
 
         // GET api/values/5
